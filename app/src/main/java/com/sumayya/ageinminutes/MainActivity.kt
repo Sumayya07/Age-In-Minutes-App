@@ -14,26 +14,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnDatePicker.setOnClickListener{ view->
+        btnDatePicker.setOnClickListener { view ->
             clickDatePicker(view)
         }
     }
 
-    fun clickDatePicker(view: View){
+    fun clickDatePicker(view: View) {
 
         val myCalendar = Calendar.getInstance()
         val year = myCalendar.get(Calendar.YEAR)
         val month = myCalendar.get(Calendar.MONTH)
         val day = myCalendar.get(Calendar.DAY_OF_MONTH)
 
-        val dpd = DatePickerDialog(this,
-            DatePickerDialog.OnDateSetListener {
-                 view, selectedYear, selectedMonth, selectedDayOfMonth ->
-                 Toast.makeText(this,
-                     "The chosen year is $selectedYear, the month is $selectedMonth and day is $selectedDayOfMonth",
-                     Toast.LENGTH_LONG).show()
+        DatePickerDialog(
+            this,
+            DatePickerDialog.OnDateSetListener { view, selectedYear, selectedMonth, selectedDayOfMonth ->
+                Toast.makeText(
+                    this,
+                    "The chosen year is $selectedYear, the month is $selectedMonth and day is $selectedDayOfMonth",
+                    Toast.LENGTH_LONG
+                ).show()
 
-                val selectedDate = "$selectedDayOfMonth/${selectedMonth+1}/$selectedYear"
+                val selectedDate = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
 
                 tvSelectedDate.setText(selectedDate)
 
@@ -53,12 +55,15 @@ class MainActivity : AppCompatActivity() {
             },
             year,
             month,
-            day)
+            day
+        ).show()
 
-        dpd.datePicker.setMaxDate(Date().time / 86400000)
-        dpd.show()
+        /*
+           We can put the function clickDatePicker in dpd(DatePickerDialog) variable &
+           do these step to avoid the user to choose the future dates.
+           dpd.datePicker.setMaxDate(Date().time / 86400000)
+           dpd.show()
+        */
 
     }
-
-
 }
